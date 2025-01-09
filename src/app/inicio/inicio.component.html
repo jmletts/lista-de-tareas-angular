@@ -1,0 +1,56 @@
+<div class="container-all">
+    <h1>Lista de tareas</h1>
+    <button class="btn-style" (click)="setVisible()">Añadir Tarea</button>
+  
+    <div class="container-tareas">
+      <!-- Tareas disponibles -->
+      <div class="aside">
+        <h2>Tareas Disponibles</h2>
+        <div *ngFor="let tarea of listatareas; let i = index" class="org">
+          <div *ngIf="!tarea.completada" class="item-tarea">
+            <div [ngClass]="{'completadoTrue': tarea.completada, 'completadoFalse': !tarea.completada}"></div>
+            <h3>{{ tarea.nombre }}</h3>
+            <select [(ngModel)]="tarea.completada" (change)="updateTarea(tarea, i)">
+              <option [ngValue]="true">Completado</option>
+              <option [ngValue]="false">No Completado</option>
+            </select>
+            <button [routerLink]="['/tarea', tarea.index]" >Ver Tarea</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="aside">
+        <h2>Tareas Disponibles</h2>
+        <div *ngFor="let tarea of listatareas; let i = index" class="org">
+          <div *ngIf="tarea.completada" class="item-tarea">
+            <div [ngClass]="{'completadoTrue': tarea.completada, 'completadoFalse': !tarea.completada}"></div>
+            <h3>{{ tarea.nombre }}</h3>
+            <select [(ngModel)]="tarea.completada" (change)="updateTarea(tarea, i)">
+              <option [ngValue]="true">Completado</option>
+              <option [ngValue]="false">No Completado</option>
+            </select>
+            <button (click)="deleteTarea(i)">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="card-container" *ngIf="visible">
+      <div class="card">
+        <h5>Agregar Tarea</h5>
+        <input
+          type="text"
+          placeholder="Nombre"
+          [(ngModel)]="nuevaTarea.nombre"
+          maxlength="13"
+        />
+        <input
+          type="text-area"
+          placeholder="Descripción"
+          [(ngModel)]="nuevaTarea.descripcion"
+        />
+        <button (click)="addTarea()" class="btn-style">Añadir Tarea</button>
+      </div>
+    </div>
+  </div>
+  
