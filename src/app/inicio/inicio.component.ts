@@ -1,26 +1,28 @@
-
-import { Tarea } from '../models/tarea.interface';
-import { TareasService } from '../services/tareas.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TareaDetailComponent } from '../tarea-detail/tarea-detail.component';
+import { TareasService } from '../services/tareas.service';
+import { Tarea } from '../models/tarea.interface';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './inicio.component.html',
-  styleUrl: './inicio.component.css'
+  styleUrls: ['./inicio.component.css'],
 })
-
-
 export class InicioComponent implements OnInit {
   listatareas: Tarea[] = [];
-  nuevaTarea: Tarea = { index: 0, nombre: '', descripcion: '', completada: false };
+  nuevaTarea: Tarea = {
+    index: 0,
+    nombre: '',
+    descripcion: '',
+    fecha: '',
+    completada: false,
+    subtarea: [],
+  };
   visible = false;
-  alert : boolean = false;
 
   private _tareasService = inject(TareasService);
 
@@ -29,11 +31,19 @@ export class InicioComponent implements OnInit {
   }
 
   addTarea(): void {
-    if (this.nuevaTarea) {
+    if (this.nuevaTarea.nombre.trim() && this.nuevaTarea.descripcion.trim()) {
+      this.nuevaTarea.index = this.listatareas.length + 1;
       this._tareasService.addTarea(this.nuevaTarea);
-      this.nuevaTarea = { index: 0, nombre: '', descripcion: '', completada: false };
+      this.nuevaTarea = {
+        index: 0,
+        nombre: '',
+        descripcion: '',
+        fecha: '',
+        completada: false,
+        subtarea: [],
+      };
       this.listatareas = this._tareasService.getTareas();
-      this.visible = false
+      this.visible = false;
     }
   }
 
@@ -42,12 +52,26 @@ export class InicioComponent implements OnInit {
     this.listatareas = this._tareasService.getTareas();
   }
 
-  setVisible() {
-    this.visible = true
-  }
+  
 
   updateTarea(tarea: Tarea, index: number): void {
     this._tareasService.updateTarea(index, tarea);
     this.listatareas = this._tareasService.getTareas();
+  }
+
+  addSubtarea(): void {
+    this.nuevaTarea.subtarea.push('');
+  }
+
+  removeSubtarea(index: number): void {
+    this.nuevaTarea.subtarea.splice(index, 1);
+  }
+
+  setVisible(value: boolean){
+    this.visible = value;
+  }
+
+  updateTareas() : void{
+    this.listatareas = this._tareasService.getTareas(); // actualizar desde otro componente
   }
 }

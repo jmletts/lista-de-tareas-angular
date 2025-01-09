@@ -1,2 +1,52 @@
+<h1>Lista de tareas</h1>
+    <button class="btn-style" (click)="setVisible(true)">Añadir Tarea</button>
+    <router-outlet></router-outlet>
 
-<router-outlet></router-outlet>
+    <div class="card-container" *ngIf="visible">
+        <div class="card">
+          <div>
+            <h5>Agregar Tarea</h5>
+          <input
+            type="text"
+            placeholder="Nombre"
+            [(ngModel)]="nuevaTarea.nombre"
+            maxlength="13"
+          />
+          <textarea
+            [(ngModel)]="nuevaTarea.descripcion"
+            rows="4"
+            cols="50"
+            placeholder="Escribe una descripción aquí..."
+          ></textarea>
+          <input
+            type="date"
+            placeholder="Fecha"
+            [(ngModel)]="nuevaTarea.fecha"
+            
+          />
+          <div style="display: flex; flex-direction: row; width: 100%;">
+            <button (click)="addTarea()" class="btn-style">Añadir Tarea</button>
+            <button (click)="setVisible(false)" class="btn-style" style="background-color: gray;">Cancelar</button>
+          </div>
+          
+          </div>
+          
+          <div class="sub-container">
+            <h3>Subtareas</h3>
+            <button class="btn-style" (click)="addSubtarea()">+ Añadir Subtarea</button>
+          <div *ngFor="let subtarea of nuevaTarea.subtarea; let i = index" >
+            <input
+              type="text"
+              placeholder="Subtarea {{ i + 1 }}"
+              [(ngModel)]="nuevaTarea.subtarea[i]"
+            />
+            <button class="btn-style" (click)="removeSubtarea(i)">Eliminar</button>
+          </div>
+      
+          
+          </div>
+          
+          
+        </div>
+        
+

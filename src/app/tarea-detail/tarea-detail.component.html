@@ -1,1 +1,7 @@
-<p>tarea-detail works!</p>
+<p>{{ tareaActual?.nombre }}</p>
+<p>{{ tareaActual?.fecha }}</p>
+<p>{{ tareaActual?.descripcion }}</p>
+
+<h5 *ngFor="let subtarea of listaSub">
+  {{ subtarea }}
+</h5>

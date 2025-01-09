@@ -8,5 +8,5 @@ import { InicioComponent } from './inicio/inicio.component';
 
 export const routes: Routes = [
     {path : '', component : InicioComponent},
-    {path : 'tarea/:index',  component : TareaDetailComponent}
+    {path : 'tarea/:tareaNombre',  component : TareaDetailComponent}
 ];
