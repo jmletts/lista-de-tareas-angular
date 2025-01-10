@@ -1,8 +1,20 @@
-<h1>Lista de tareas</h1>
-    <button class="btn-style" (click)="setVisible(true)">Añadir Tarea</button>
-    <router-outlet></router-outlet>
 
-    <div class="card-container" *ngIf="visible">
+  <div class="main">
+    <p> *Lista de tareas</p>
+    <button class="btn-style" (click)="setVisible(true)"> +  Añadir Tarea</button>
+    
+  </div>
+
+  <div class="hero" *ngIf="showHero">
+    <h1>Organiza Tu tiempo Ahora</h1>
+    <button class="btn-style" (click)="setVisible(true)"> +  Añadir Tarea</button>
+  </div>
+    <router-outlet>
+      
+
+    </router-outlet>
+
+    <div class="card-container" *ngIf="visible"  [@fadeInOut]>
         <div class="card">
           <div>
             <h5>Agregar Tarea</h5>

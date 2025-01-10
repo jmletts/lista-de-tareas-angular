@@ -1,7 +1,23 @@
-<p>{{ tareaActual?.nombre }}</p>
-<p>{{ tareaActual?.fecha }}</p>
-<p>{{ tareaActual?.descripcion }}</p>
 
-<h5 *ngFor="let subtarea of listaSub">
-  {{ subtarea }}
-</h5>
+<div class="cont">
+  <div class="tag">
+
+    <h2>{{ tareaActual?.nombre }}</h2>
+    <label>Fecha</label>
+    <h3>{{ tareaActual?.fecha | date: "long"}}</h3>
+    <label>Estado</label>
+    <h5 *ngIf="tareaActual?.completada">completada</h5>
+    <h5 *ngIf="!tareaActual?.completada">No completada</h5>
+    <br>
+    <label>Descripcion:</label>
+    <p>{{ tareaActual?.descripcion }}</p>
+    <label>Subtareas</label>
+    <ul>
+      <li *ngFor="let subtarea of listaSub">
+        {{ subtarea }}
+      </li>
+    </ul>
+  </div>
+
+</div>
+  

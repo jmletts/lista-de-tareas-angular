@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TareasService } from '../services/tareas.service';
 import { Tarea } from '../models/tarea.interface';
+import { UpdaterService } from '../services/updater.service';
 
 @Component({
   selector: 'app-inicio',
@@ -25,9 +26,13 @@ export class InicioComponent implements OnInit {
   visible = false;
 
   private _tareasService = inject(TareasService);
+  private _updaterService = inject(UpdaterService);
 
   ngOnInit(): void {
-    this.listatareas = this._tareasService.getTareas();
+    this._updaterService.update$.subscribe(()=>{
+      this.listatareas = this._tareasService.getTareas();
+    })
+    
   }
 
   addTarea(): void {
